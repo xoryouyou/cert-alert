@@ -1,0 +1,6 @@
+certificates:
+  - remote_test:
+    name: "this should not validate"
+    url: "https://example.com"
+    file: "test_file.pem"
+    threshold: 20

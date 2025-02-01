@@ -1,0 +1,12 @@
+__pycache__/
+.pytest_cache
+.ruff_cache/
+.github/
+build/
+dist/
+tests/data/certificates/dynamic/*.pem
+*.egg-info/
+*.json
+config.yml
+config.yml.example
+README.md

@@ -1,0 +1,8 @@
+name: cert-alert
+services:
+    cert-alert:
+        volumes:
+            - ./your_certificates:/certificates
+            - ./your_config.yml:/config.yml
+            - ./reports:/reports
+        image: xoryouyou/cert-alert

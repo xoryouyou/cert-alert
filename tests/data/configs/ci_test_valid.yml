@@ -1,0 +1,9 @@
+certificates:
+  - local_test:
+    name: "local test certificate"
+    file: "./tests/data/certificates/dynamic/valid_30days.pem"
+    threshold: 20
+  - remote_test:
+    name: "github public endpoint"
+    url: "https://github.com"
+    threshold: 20
