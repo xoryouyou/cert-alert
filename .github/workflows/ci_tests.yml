@@ -1,0 +1,44 @@
+name: CI Tests
+on: 
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  ci-tests:
+    name: ci-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - uses: actions/checkout@v4
+
+      # Install uv 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      # Install jq 
+      - name: 'Setup jq'
+        uses: dcarbone/install-jq-action@v3
+
+      # Set up Python with version specified in pyproject.toml
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+
+      # Install project dependencies including extras and dev dependencies
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
+      # Run pytest test suite using uv
+      - name: Run tests
+        run: uv run pytest
+
+      # Install the cert-checker package itself for the later integration tests
+      - name: install cert-alert
+        run: uv pip install -e  .
+
+      # Run CLI integration tests from the tests directory
+      - name: Run cli tests
+        run: |
+          uv run cert-alert --config tests/data/configs/ci_test_valid.yml --output report.json
+          jq 'has("checks")' < report.json

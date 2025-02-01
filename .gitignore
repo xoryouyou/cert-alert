@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache
+build/
+dist/
+tests/data/certificates/dynamic/*.pem
+*.egg-info/
+*.json
